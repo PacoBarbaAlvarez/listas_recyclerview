@@ -7,6 +7,7 @@
   import androidx.recyclerview.widget.LinearLayoutManager
   import com.example.listas_recyclerview.adapted.ParqueAdapter
   import com.example.listas_recyclerview.databinding.ActivityMainBinding
+  import androidx.core.widget.addTextChangedListener
 
 
 class MainActivity : AppCompatActivity() {
@@ -18,6 +19,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.recicler.layoutManager = LinearLayoutManager(this)
-        binding.recicler.adapter=ParqueAdapter(ParqueProvider.parqueList)
+        var adapter = ParqueAdapter(ParqueProvider.parqueList)
+        binding.recicler.adapter=adapter
+
+        binding.Filtro.addTextChangedListener {filtro ->
+            val filtroParque = ParqueProvider.parqueList.filter { Parque ->
+                Parque.nombre.lowercase().contains(filtro.toString().lowercase())  }
+            adapter.actualizarParques(filtroParque)
+
+        }
     }
 }
