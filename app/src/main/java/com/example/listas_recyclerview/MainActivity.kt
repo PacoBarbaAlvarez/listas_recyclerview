@@ -10,11 +10,11 @@
   import androidx.core.widget.addTextChangedListener
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : ActivityWithMenus() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTitle("ListadoPelis")
         //setContentView(R.layout.activity_main)
-        val decoration = DividerItemDecoration(this,LinearLayoutManager.VERTICAL)
         val binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -23,8 +23,8 @@ class MainActivity : AppCompatActivity() {
         binding.recicler.adapter=adapter
 
         binding.Filtro.addTextChangedListener {filtro ->
-            val filtroParque = ParqueProvider.parqueList.filter { Parque ->
-                Parque.nombre.lowercase().contains(filtro.toString().lowercase())  }
+            val filtroParque = ParqueProvider.parqueList.filter { Peli ->
+                Peli.nombre.lowercase().contains(filtro.toString().lowercase())  }
             adapter.actualizarParques(filtroParque)
 
         }
